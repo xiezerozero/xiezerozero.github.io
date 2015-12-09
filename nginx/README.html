@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>README</title>
     <style type="text/css">
         /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
         /* Author: Nicolas Hery - http://nicolashery.com */
@@ -291,77 +291,63 @@
     </style>
 </head>
 <body>
-    <h3>INDEX</h3>
-<ul>
-<li><a href="../linux/README.html">linux</a></li>
-<li><a href="../nginx/README.html">nginx</a></li>
-<li><a href="../php7/README.html">php7</a></li>
-</ul>
-<h1>h1</h1>
-<blockquote>
-<p>This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.<br />
-Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>
-<p>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-id sem consectetuer libero luctus adipiscing.<br />
-区域块内部换行,在末尾加上2个空格即可</p>
-<p>This is the first level of quoting.</p>
-<blockquote>
-<p>This is nested blockquote.嵌套段落</p>
-</blockquote>
-<p>Back to the first level.</p>
-<h2>这是一个标题。</h2>
-<ol>
-<li>这是第一行列表项。</li>
-<li>这是第二行列表项。</li>
-</ol>
-<p>给出一些例子代码：</p>
-<pre><code>return shell_exec("echo $input | $markdown_script");</code></pre>
-</blockquote>
-<ol>
-<li>
-<p>This is a list item with two paragraphs. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-mi posuere lectus.换行中间多一个空行</p>
-<p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-sit amet velit.</p>
-</li>
-<li>
-<p>Suspendisse id sem consectetuer libero luctus adipiscing.</p>
-</li>
-<li>
-<p>1986. below is the code area.行首出现数字-句点-空白，要避免这样的状况，你可以在句点前面加上反斜杠</p>
-</li>
-<li>标记内容用``将需要标记的内容包含,eg: <code>标记的内容</code></li>
-</ol>
-<h4>代码块 缩进4个空格或者一个制表符</h4>
-<pre><code>    class Test
-    {
-    }</code></pre>
-<p>分割线</p>
-<hr />
-<p>This is <a href="http://www.baidu.com/" title="baidu">an example</a> inline link with attribute title.设置title属性和连接之前有空格,用引号包含</p>
-<p><a href="http://www.baidu.com/" title="baidu">This link</a> has no title attribute. 参考室链接</p>
-<p>See my <a href="/about/">About</a> page for details. 链接到当前主机的资源</p>
-<h3>Markdown 编辑器</h3>
-<h4>windows平台</h4>
-<ul>
-<li><a href="http://markdownpad.com/">MarkdownPad</a></li>
-<li><a href="http://code52.org/DownmarkerWPF/">MarkPad</a></li>
-</ul>
-<h4>linux平台</h4>
-<ul>
-<li><a href="http://sourceforge.net/p/retext/home/ReText/">ReText</a></li>
-</ul>
-<h4>Mac平台</h4>
-<ul>
-<li><a href="http://mouapp.com/">Mou</a></li>
-</ul>
-<h4>浏览器插件</h4>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/made/oknndfeeopgpibecfjljjfanledpbkog">MaDe</a></li>
-</ul>
-<p>*** 如有更好的推荐</p>
+    <h1>配置404页面</h1>
+<p>fastcgi_intercept_errors on;</p>
+<p>server {</p>
+<pre><code>server_name     localhost   test.com;
+listen  80;
+root    /usr/share/nginx/html;
+access_log  /ect/logs/nginx/test.com-access.log  main;
+
+error_page  404     /404.html
+location = 404.html {
+    root html;
+}
+
+location ~\.php$ {  #location 定义文件类型, \.php$ 代表所有以 php 作为文件后缀的文件类型.
+
+    root /www;      # 定义 php 文件存放的路径, 当前以 "/www" 作为默认存放位置.
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;        #定义 php 文件类型中的默认索引页
+
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    #fastcgi_param SCRIPT_FILENAME 定义了页面请求参数, 如客户端需要访问 /t1.php 则会自动读取 /www/t1.php文件, 如客户端访问 / 则自动读取 /www/index
+    .php 文件
+    include fastcgi_params;
+}
+
+#配置详情页路由
+
+location ~^(.*)$ {
+    #按顺序检查文件/是否存在，返回第一个找到的文件。结尾的斜线表示为文件夹 -$uri/。
+    #如果所有的文件都找不到，会进行一个内部重定向到最后一个参数。
+    #务必确认只有最后一个参数可以引起一个内部重定向，之前的参数只设置内部URI的指向。 
+    #最后一个参数是回退URI且必须存在，否则将会出现内部500错误。
+    try_files $uri $uri/ /index.php?q=$uri&amp;$args;   #前面$uri文件 和 $uri目录都找不到会fallback到最后一个选项,方法一个内部请求,
+    #被location ~ \.php$ catch住,进入fastcgi处理程序.
+}
+
+location ~^/(\d+).html {
+    fastcgi_pass    127.0.0.1:9000;
+    fastcgi_index   index.php;
+    #include        fastcgi_params;     //引入fastcgi相关变量
+    #$document_root 项目根目录   root 配置对应
+    fastcgi_param   SCRIPT_NAME     $document_root$fastcgi_script_name;   //开启nginx解析PHP
+    fastcgi_param   REQUEST_URI     /goods/detail;
+    fastcgi_param   QUERY_STRING    id=$1;
+    # Nginx 默认是不支持 CGI PATH_INFO，SCRIPT_NAME 的值也不标准（糅合了 PATH_INFO）
+    # 下面的两行指令，可以从 SCRIPT_NAME 中剥离出 PATH_INFO
+    fastcgi_split_path_info     ^(.+\.php)(.*)$;
+    fastcgi_param PATH_INFO     $fastcgi_path_info;
+}
+
+location ~ \.(gif|jpg|png|js|css)$ {    #定义资源的访问根路径(和其他配置)
+    root "F:/test";
+}</code></pre>
+<p>}</p>
+<p>nginx最常用的方法是利用 tcp/ip 协议连接 phpfastcgi 接口, 因此要连接php必须先启动fastcgi程序.</p>
+<p>启动方法：</p>
+<h1>/usr/local/bin/php-cgi-b 127.0.0.1:9000 -c /usr/local/lib/php.ini</h1>
+<p>为有效地解决php-cgi接口无法应答大量并发连接请求, 我们可以利用 spawn-fcgi或者php-fpm。</p>
 </body>
 </html>
