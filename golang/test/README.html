@@ -297,10 +297,10 @@ testing框架和其他语言中的测试框架类似，你可以基于这个框�
 也可以基于该框架写相应的压力测试用例，那么接下来让我们一一来看一下怎么写。</p>
 <h2>如何编写测试用例</h2>
 <p>由于go test命令只能在一个相应的目录下执行所有文件，所以我们接下来新建一个项目目录gotest,这样我们所有的代码和测试代码都在这个目录下。</p>
-<p>接下来我们在该目录下面创建两个文件：gotest.go和gotest_test.go</p>
+<p>接下来我们在该目录下面创建两个文件：math.go和math_test.go</p>
 <ol>
 <li>
-<p>gotest.go:这个文件里面我们是创建了一个包，里面有一个函数实现了除法运算:</p>
+<p>math.go:这个文件里面我们是创建了一个包，里面有一个函数实现了除法运算:</p>
 <pre><code>package gotest
 
 import (
@@ -315,7 +315,7 @@ func Division(a, b float64) (float64, erro) {
 }</code></pre>
 </li>
 <li>
-<p>gotest_test.go:这是我们的针对gotest.go的单元测试文件,要遵循以下原则:</p>
+<p>math_test.go:这是我们的针对math.go的单元测试文件,要遵循以下原则:</p>
 <p>a.文件名必须是<code>_test.go</code>结尾的，这样在执行<code>go test</code>的时候才会执行到相应的代码<br />
 b.你必须import <code>testing</code>这个包<br />
 c.所有的测试用例函数必须是<code>Test</code>开头<br />
@@ -339,14 +339,18 @@ func Test_Division_1(t *testing.T) {
 }
 
 func Test_Division_2(t *testing.T) {
-    t.Error("就是不通过")
+    if i, e := Division(6, 0); e != nil {
+            t.Error(e.Error())
+    } else {
+        t.Log("通过测试")
+    }
 }</code></pre>
 <p>我们在test目录下运行go test,就会执行单元测试,显示如下信息</p>
 <pre><code>--- FAIL: Test_Division_2 (0.00 seconds)
-    gotest_test.go:16: 就是不通过
+    math_test.go:16: 除数不能为0
 FAIL
 exit status 1
-FAIL    gotest  0.013s</code></pre>
+FAIL    math  0.013s</code></pre>
 <p>默认情况下执行 go test是不会显示测试通过的信息,我们需要带上参数<code>go test -v</code>,这样就会显示详细信息;<br />
 执行某个测试方法使用如下命名<code>go test -v -run "Test_Devision_1"</code></p>
 </li>
@@ -391,12 +395,16 @@ FAIL    gotest  0.013s</code></pre>
 <pre><code>    PASS
     Benchmark_Division  500000000            7.76 ns/op
     Benchmark_TimeConsumingFunction 500000000            7.80 ns/op
-    ok      gotest  9.364s  </code></pre>
+    ok      math  9.364s  </code></pre>
 <p>上面的结果显示我们没有执行任何<code>TestXXX</code>的单元测试函数，显示的结果只执行了压力测试函数，第一条显示了<br />
 <code>Benchmark_Division</code>执行了500000000次，每次的执行平均时间是7.76纳秒，第二条显示<br />
 了<code>Benchmark_TimeConsumingFunction</code>执行了500000000，每次的平均执行时间是7.80纳秒。最后一条显示总共的执行时间。</p>
 <h2>小结</h2>
 <p>通过上面对单元测试和压力测试的学习，我们可以看到<code>testing</code>包很轻量，编写单元测试和压力测试用例非常简单，配合内置<br />
-的<code>go test</code>命令就可以非常方便的进行测试，这样在我们每次修改完代码,执行一下go test就可以简单的完成回归测试了</p>
+的<code>go test</code>命令就可以非常方便的进行测试，这样在我们每次修改完代码,执行一下go test就可以简单的完成回归测试了  </p>
+<h2>links</h2>
+<ul>
+<li>本文内容参考<a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/11.3.md">链接</a></li>
+</ul>
 </body>
 </html>

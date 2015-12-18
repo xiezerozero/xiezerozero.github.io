@@ -8,9 +8,9 @@ testing框架和其他语言中的测试框架类似，你可以基于这个框�
 ## 如何编写测试用例
 由于go test命令只能在一个相应的目录下执行所有文件，所以我们接下来新建一个项目目录gotest,这样我们所有的代码和测试代码都在这个目录下。
 
-接下来我们在该目录下面创建两个文件：gotest.go和gotest_test.go
+接下来我们在该目录下面创建两个文件：math.go和math_test.go
 
-1. gotest.go:这个文件里面我们是创建了一个包，里面有一个函数实现了除法运算:
+1. math.go:这个文件里面我们是创建了一个包，里面有一个函数实现了除法运算:
     
         package gotest
         
@@ -25,7 +25,7 @@ testing框架和其他语言中的测试框架类似，你可以基于这个框�
             return a/b, nil
         }
     
-2. gotest_test.go:这是我们的针对gotest.go的单元测试文件,要遵循以下原则:
+2. math_test.go:这是我们的针对math.go的单元测试文件,要遵循以下原则:
     
     
     a.文件名必须是`_test.go`结尾的，这样在执行`go test`的时候才会执行到相应的代码  
@@ -53,16 +53,20 @@ testing框架和其他语言中的测试框架类似，你可以基于这个框�
         }
         
         func Test_Division_2(t *testing.T) {
-            t.Error("就是不通过")
+            if i, e := Division(6, 0); e != nil {
+                    t.Error(e.Error())
+            } else {
+                t.Log("通过测试")
+            }
         }
 
     我们在test目录下运行go test,就会执行单元测试,显示如下信息
 	    
         --- FAIL: Test_Division_2 (0.00 seconds)
-            gotest_test.go:16: 就是不通过
+            math_test.go:16: 除数不能为0
         FAIL
         exit status 1
-        FAIL    gotest  0.013s
+        FAIL    math  0.013s
             
     默认情况下执行 go test是不会显示测试通过的信息,我们需要带上参数`go test -v`,这样就会显示详细信息;  
     执行某个测试方法使用如下命名`go test -v -run "Test_Devision_1"`
@@ -108,7 +112,7 @@ testing框架和其他语言中的测试框架类似，你可以基于这个框�
         PASS
         Benchmark_Division  500000000            7.76 ns/op
         Benchmark_TimeConsumingFunction 500000000            7.80 ns/op
-        ok      gotest  9.364s  
+        ok      math  9.364s  
 
 上面的结果显示我们没有执行任何`TestXXX`的单元测试函数，显示的结果只执行了压力测试函数，第一条显示了  
 `Benchmark_Division`执行了500000000次，每次的执行平均时间是7.76纳秒，第二条显示  
@@ -116,4 +120,8 @@ testing框架和其他语言中的测试框架类似，你可以基于这个框�
 
 ## 小结
 通过上面对单元测试和压力测试的学习，我们可以看到`testing`包很轻量，编写单元测试和压力测试用例非常简单，配合内置  
-的`go test`命令就可以非常方便的进行测试，这样在我们每次修改完代码,执行一下go test就可以简单的完成回归测试了
+的`go test`命令就可以非常方便的进行测试，这样在我们每次修改完代码,执行一下go test就可以简单的完成回归测试了  
+
+## links
+* 本文内容参考[链接](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/11.3.md)
+
