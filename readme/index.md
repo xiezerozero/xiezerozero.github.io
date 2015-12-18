@@ -3,6 +3,7 @@
 * [linux](../linux/README.html)
 * [nginx](../nginx/README.html)
 * [php7](../php7/README.html)
+* [golang](../golang/README.html)
 
 h1
 ===
