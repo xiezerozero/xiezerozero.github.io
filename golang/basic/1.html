@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>README</title>
+    <title>1</title>
     <style type="text/css">
         /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
         /* Author: Nicolas Hery - http://nicolashery.com */
@@ -291,25 +291,35 @@
     </style>
 </head>
 <body>
-    <h3>自动生成MODEL的CRUD</h3>
-<p><img src="../../images/bee_model_generate.png" alt="" /></p>
+    <h1>你好,Go</h1>
+<p>介绍Go语言的基本语法,让Go程序跑起来</p>
+<h2>程序</h2>
+<p>学习大部分语言,第一步都是编写一个输出<code>hello world</code>的程序</p>
+<pre><code>package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("hello world ", "世界你好 ", "καλημ ́ρα κóσμ or こんにちはせかい")
+}</code></pre>
+<p>输出如下:</p>
+<pre><code>   hello world 世界你好 καλημ ́ρα κóσμ or こんにちはせかい</code></pre>
+<h2>详解</h2>
+<p>Go语言是通过包<code>(package)</code>管理的</p>
+<p><code>package &lt;packName&gt;</code>(例子中是<code>package main</code>)这一行告诉我们该文件属于哪一个包,main是一个可独立运行的包,编译之后生成可执行文件.其他包会生成.a文件<br />
+并放置在<code>$GOPATH/pkg/$GOOS_$GOARCH中</code>.</p>
+<pre><code>每一个可独立运行的Go程序,必定包含一个package main, 必定包含一个main函数,该函数无参数,无返回值</code></pre>
+<p>为了打印<code>hello world</code>,我们调用fmt包中的Println方法,所以需要导入: import &quot;fmt&quot;<br />
+函数关键字<code>func</code> 定义一个main函数,写法和其他语言大同小异<br />
+调用<code>fmt</code>包函数我们采用 <code>&lt;packName&gt;.&lt;funName&gt;</code>的方式.</p>
+<pre><code>package包名和文件夹名可以不同.</code></pre>
+<p>Go语言是天生支持UTF-8,任何字符都可以直接输出.</p>
+<h2>结论</h2>
+<p>Go语言利用package组织代码, <code>func main()</code>位于主包,是每一个可以独立运行的程序的入口.Go语言使用UTF-8字符串和标识符,所以天生支持多语言.</p>
+<h2>link</h2>
 <ul>
-<li>
-<p>自动生成API文档</p>
-<ul>
-<li>
-<ol>
-<li>配置文件中EnableDocs = true</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>main.go中引入 <code>beeapi/docs</code></li>
-</ol>
-<p>bee run -gendoc=true</p>
-</li>
-</ul>
-</li>
+<li><a href="index.html">目录</a></li>
+<li>下一节 <a href="2.html">Go基础</a></li>
 </ul>
 </body>
 </html>

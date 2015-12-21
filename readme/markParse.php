@@ -8,9 +8,11 @@
 include 'Parsedown.php';
 $parser = new Parsedown();
 //源目录
-$sourceDir = 'f:/test/xiezerozero.github.io/readme';
+$sourceDir = 'd:/test_code/xiezerozero.github.io/readme';
+//$sourceDir = 'f:/test/xiezerozero.github.io/readme';
 //目标目录
-$targetDir = 'f:/test/xiezerozero.github.io';
+$targetDir = 'd:/test_code/xiezerozero.github.io';
+//$targetDir = 'f:/test/xiezerozero.github.io';
 
 $iterator = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator($sourceDir, FilesystemIterator::SKIP_DOTS),
@@ -22,7 +24,7 @@ $templateContent = file_get_contents(__DIR__ . '/template.html');
 /** @var SplFileInfo $file */
 foreach ($iterator as $file) {
     //过滤脚本文件
-    if ($file->getExtension() != 'md') {
+    if ($file->getExtension() == 'php' || $file->getExtension() == 'html') {
         continue;
     }
     if ($file->isDir()) {
