@@ -296,7 +296,8 @@
 <p><strong>array_reduce</strong></p>
 <blockquote>
 <p><a href="http://php.net/manual/en/function.array-reduce.php">array_reduce</a>
-迭代处理数组的每一项,并将处理结果作为下一项的初始值
+迭代处理数组的每一项,并将处理结果作为下一项的初始值<br />
+mixed array_reduce(array $array, callable $callback, [mixed $initial = null])<br />
 Iteratively reduce the array to a single value using a callback function</p>
 </blockquote>
 <pre><code>$attribs = [
@@ -315,6 +316,57 @@ Iteratively reduce the array to a single value using a callback function</p>
 
  echo $formatted_attribs</code></pre>
 </li>
+<li>
+<p><strong>array_map</strong> </p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-map.php">array_map</a>
+将回调函数作用于数组的每一项，生成新的数组返回<br />
+array array_map(callable $callback, array $array1, ...array...)</p>
+</blockquote>
+<pre><code>function cube($n)
+{
+    return $n * $n * $n;
+}
+$a = [1, 2, 3, 4, 5];
+$b = array_map("cube", $a);</code></pre>
+</li>
+<li>
+<p><strong>array_product</strong></p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-product.php">array_product</a><br />
+计算数组中所有制的乘积: 可以用于处理递归的情况  </p>
+</blockquote>
+<pre><code>array_product(range(1, 100))</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>如果数组中的值全是bool类型, 可以用来确定这些值是否全为true</p>
+</blockquote>
+<pre><code>    array_product([$check1, $check2, $check3, $check4])</code></pre>
+<p>等价于  </p>
+<pre><code>    ($check1 &amp;&amp; $check2 &amp;&amp; $check3 &amp;&amp; $check4)</code></pre>
+<ul>
+<li>
+<p><strong>array_replace</strong> </p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-replace.php">array_replace</a>
+array array_replace(array $array1, array $array2, ...array...)</p>
+</blockquote>
+</li>
+<li>
+<p><strong>array_replace_recursive</strong></p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-replace-recursive.php">array_replace_recursive</a>
+array array_replace_recursive(array $array1 , array $array2 [, array $... ])</p>
+</blockquote>
+</li>
+<li><strong>array_search</strong>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-search.php">array_search</a>
+mixed array_search(mixed $needle, array $haystack, bool $strict = false)
+数组中搜索给定的值,成功返回相应的键值,否则返回false(注意0, '0' 和 false区分)<br />
+找到多个值的时候,只返回第一个找到的键值, 如果想返回多个, 请使用<a href="http://php.net/manual/en/function.array-keys.php">array_keys</a></p>
+</blockquote></li>
 </ul>
 </body>
 </html>
