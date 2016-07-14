@@ -8,10 +8,10 @@
 include 'Parsedown.php';
 $parser = new Parsedown();
 //源目录
-$sourceDir = 'd:/test_code/xiezerozero.github.io/readme';
+$sourceDir = 'E:/mine/tech/xiezerozero.github.io/readme';
 //$sourceDir = 'f:/test/xiezerozero.github.io/readme';
 //目标目录
-$targetDir = 'd:/test_code/xiezerozero.github.io';
+$targetDir = 'E:/mine/tech/xiezerozero.github.io';
 //$targetDir = 'f:/test/xiezerozero.github.io';
 
 $iterator = new RecursiveIteratorIterator(
