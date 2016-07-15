@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>array_map</title>
     <style type="text/css">
         /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
         /* Author: Nicolas Hery - http://nicolashery.com */
@@ -291,6 +291,57 @@
     </style>
 </head>
 <body>
-    
+    <ul>
+<li>
+<p><strong>array_map</strong> </p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-map.php">array_map</a>
+将回调函数作用于数组的每一项，生成新的数组返回<br />
+array array_map(callable $callback, array $array1, ...array...)</p>
+</blockquote>
+<pre><code>/**
+ * 处理每一项作为返回值的每一项
+ */
+function commonUse()
+{
+    $a = range(1, 10);
+    $b = array_map(function ($v) {
+        return $v * 2;
+    }, $a);
+    var_dump($b);
+}
+
+//commonUse();</code></pre>
+<hr />
+<pre><code>/**
+ * 多个数组的每一项一起处理
+ */
+function dealMoreArrays()
+{
+    $a = range(1, 5);
+    $b = ["a", 'b', 'c', 'd', 'e'];
+    $c = array_map(function ($v1, $v2) {
+        return "the $v1 is $v2";
+    }, $a, $b);
+    var_dump($c);
+}
+
+//dealMoreArrays();</code></pre>
+<hr />
+<pre><code>/**
+ * 构建一个包含数组的数组
+ */
+function constructArray()
+{
+    $a = [1, 2, 3, 4, 5];
+    $b = ["a", 'b', 'c', 'd', 'e'];
+    $c = ['doc', 'php', 'golang', 'java', 'c++'];
+
+    $d = array_map(null, $a, $b, $c);
+    var_dump($d);
+}</code></pre>
+</li>
+</ul>
+<p><a href="index.html">返回上一级</a> </p>
 </body>
 </html>

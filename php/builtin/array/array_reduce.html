@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>array_reduce</title>
     <style type="text/css">
         /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
         /* Author: Nicolas Hery - http://nicolashery.com */
@@ -291,17 +291,64 @@
     </style>
 </head>
 <body>
-    <h2>目录</h2>
-<ul>
-<li><a href="array_reduce.html">array_reduce</a> </li>
-<li><a href="array_map.html">array_map</a> </li>
-<li><a href="array_product.html">array_product</a> </li>
-<li><a href="array_replace.html">array_replace</a> </li>
-<li><a href="array_search.html">array_search</a> </li>
-<li><a href="array_slice.html">array_slice</a> </li>
-<li><a href="array_splice.html">array_splice</a> </li>
-<li><a href="array_walk.html">array_walk</a> </li>
+    <ul>
+<li>
+<p><strong>array_reduce</strong></p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-reduce.php">array_reduce</a>
+迭代处理数组的每一项,并将处理结果作为下一项的初始值<br />
+mixed array_reduce(array $array, callable $callback, [mixed $initial = null])
+Iteratively reduce the array to a single value using a callback function</p>
+</blockquote>
+<pre><code>$attribs = [
+     'name' =&gt; 'first_name',
+     'value' =&gt; 'Edward'
+ ];
+
+ // Attribute string formatted for use inside HTML element
+ $formatted_attribs = array_reduce(
+     array_keys($attribs),                       // We pass in the array_keys instead of the array here
+     function ($carry, $key) use ($attribs) {    // ... then we 'use' the actual array here
+         return $carry . ' ' . $key . '="' . htmlspecialchars( $attribs[$key] ) . '"';
+     },
+     ''
+ );
+
+ echo $formatted_attribs</code></pre>
+</li>
 </ul>
-<p><a href="../index.html">返回上级</a> </p>
+<hr />
+<pre><code>    /**
+     * 循环处理数组每一项 经过$callback函数处理返回这一次处理的值
+     * 并作为下一次的$result值继续处理
+     */
+    function commonUse()
+    {
+        $callback = function ($result, $item) {
+            $result += $item;
+            return $result;
+        };
+        $a = range(1, 10);
+        $r = array_reduce($a, $callback);
+        var_dump($r);
+    }
+    //commonUse();</code></pre>
+<hr />
+<pre><code>    /**
+     * 带初始值的循环处理数组, 数组为空,则直接返回初始值
+     */
+    function reduceWithInitial()
+    {
+        $callback = function ($result, $item) {
+            $result *= $item;
+            return $result;
+        };
+
+        $a = range(1, 10);
+        $r = array_reduce($a, $callback, 10);
+        var_dump($r);
+    }
+    reduceWithInitial();</code></pre>
+<p><a href="index.html">返回上一级</a></p>
 </body>
 </html>

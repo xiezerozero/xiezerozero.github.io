@@ -1,6 +1,7 @@
 <?php
 /**
- * @author xiezerozero <xielin@qqn.com>
+ * @author xiezerozero
+ * xiezerozero@qq.com
  */
 
 

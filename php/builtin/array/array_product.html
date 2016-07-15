@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>array_product</title>
     <style type="text/css">
         /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
         /* Author: Nicolas Hery - http://nicolashery.com */
@@ -291,17 +291,22 @@
     </style>
 </head>
 <body>
-    <h2>目录</h2>
-<ul>
-<li><a href="array_reduce.html">array_reduce</a> </li>
-<li><a href="array_map.html">array_map</a> </li>
-<li><a href="array_product.html">array_product</a> </li>
-<li><a href="array_replace.html">array_replace</a> </li>
-<li><a href="array_search.html">array_search</a> </li>
-<li><a href="array_slice.html">array_slice</a> </li>
-<li><a href="array_splice.html">array_splice</a> </li>
-<li><a href="array_walk.html">array_walk</a> </li>
+    <ul>
+<li>
+<p><strong>array_product</strong></p>
+<blockquote>
+<p><a href="http://php.net/manual/en/function.array-product.php">array_product</a><br />
+计算数组中所有制的乘积: 可以用于处理递归的情况  </p>
+</blockquote>
+<pre><code>array_product(range(1, 100))</code></pre>
+</li>
 </ul>
-<p><a href="../index.html">返回上级</a> </p>
+<blockquote>
+<p>如果数组中的值全是bool类型, 可以用来确定这些值是否全为true</p>
+</blockquote>
+<pre><code>    array_product([$check1, $check2, $check3, $check4])</code></pre>
+<p>等价于  </p>
+<pre><code>    ($check1 &amp;&amp; $check2 &amp;&amp; $check3 &amp;&amp; $check4)</code></pre>
+<p><a href="index.html">返回上一级</a> </p>
 </body>
 </html>
